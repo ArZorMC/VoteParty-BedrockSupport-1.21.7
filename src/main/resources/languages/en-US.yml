@@ -29,6 +29,7 @@ party:
   force-start-successful: "&fYou've force started a &dVote Party &ffor all online players!"
   requirements-not-met: "&fSorry, but you did not meet the requirements to join this party!"
 votes:
+  votes.bedrock-warning: "<gray>You're playing from Bedrock – some vote rewards may be limited!"
   votes-needed-updated: "&fNew required votes has been set! &d%voteparty_votes_required_party% Votes &fneeded for the next party."
   vote-counter-updated: "&fCurrent votes updated to &d%voteparty_votes_recorded%&f!"
   private-party-given: "&fYou've given a private &dVote Party &fto &d%player_name%&f!"

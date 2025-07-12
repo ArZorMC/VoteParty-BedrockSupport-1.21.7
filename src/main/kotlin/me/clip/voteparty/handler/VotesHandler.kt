@@ -12,6 +12,7 @@ import me.clip.voteparty.exte.takeRandomly
 import me.clip.voteparty.leaderboard.LeaderboardType
 import me.clip.voteparty.messages.Messages
 import me.clip.voteparty.plugin.VotePartyPlugin
+import me.clip.voteparty.util.FloodgateUtil
 import me.clip.voteparty.version.EffectType
 import org.bukkit.Bukkit
 import org.bukkit.entity.Player
@@ -58,6 +59,23 @@ class VotesHandler(override val plugin: VotePartyPlugin) : Addon, State
 	
 	fun runAll(player: Player)
 	{
+		if (FloodgateUtil.isBedrockPlayer(player))
+		{
+			plugin.logger.info("⚠ Bedrock player ${player.name} is voting – skipping incompatible rewards")
+
+			// Option 1: Skip rewards entirely
+			// return
+
+			// Option 2: Send a message and give global rewards only
+			sendMessage(party.manager().getCommandIssuer(player), Messages.VOTES__BEDROCK_WARNING)
+
+			// Optional: Only run a subset of rewards
+			giveGuaranteedVoteRewards(player)
+			runGlobalCommands(player)
+			return
+		}
+
+		// ✅ Java player - proceed as usual
 		giveRandomVoteRewards(player)
 		giveGuaranteedVoteRewards(player)
 		givePermissionVoteRewards(player)
